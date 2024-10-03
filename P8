@@ -1,0 +1,39 @@
+Code-1
+import smbus
+import time
+bus=smbus.SMBus(1)
+bus.write_byte_data(0x68,0x6B,0)
+def read_word(reg):
+high=bus.read_word_data(0x68,reg)
+low=bus.read_word_data(0x68,reg+1)
+val=(high<<8)+low
+return val-65536 if val >32767 else val
+try:
+while True:
+x = read_word(0x43)
+y = read_word(0x45)
+z = read_word(0x47)
+print(f"X:{x},Y:{y},Z:{z}")
+time.sleep(0.5)
+except KeyboardInterrupt:
+print("Program terminated")
+
+
+Code-2 (sudo python gyro.py):
+import smbus
+import time
+POWER_MGMT_1=0x6B
+GYRO_XOUT_H=0x43
+GYRO_XOUT_L=0x44
+bus=smbus.SMBus(1)
+MPU6050_ADDR=0x68
+bus.write_byte_data(MPU6050_ADDR,POWER_MGMT_1,0x00)
+def read_gyro():
+x=bus.read_word_data(MPU6050_ADDR,GYRO_XOUT_H)
+y=bus.read_word_data(MPU6050_ADDR,GYRO_XOUT_H+2)
+z=bus.read_word_data(MPU6050_ADDR,GYRO_XOUT_H+4)
+return x,y,z
+while True:
+gyro_x,gyro_y,gyro_z=read_gyro()
+print(f"Gyro X:{gyro_x} | Gyro Y:{gyro_y} | Gyro Z:{gyro_z}")
+time.sleep(0.1)
