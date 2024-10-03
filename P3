@@ -1,0 +1,31 @@
+Fibonacci with loop:
+import time as _time
+def fib(n):
+    a,b = 0,1
+    for i in range(n):
+        a,b = b, a+b
+        print ("%d term is = %d" %(i+1, a))
+    return a
+
+current_millis = lambda: int(round(_time.time() * 1000))
+input = int(input("Input term = "))
+starttime = current_millis()
+x = fib(input)
+endtime = current_millis()
+print("The term value is %d Time taken is %f" %(x, (endtime - starttime)))
+
+
+Fibonacci with recursion:
+import time as _time
+def fibR(n):
+ if n <= 1:
+     return n
+ return fibR(n-1)+fibR(n-2)
+
+current_millis = lambda : int(round(_time.time() * 1000))
+input = int(input("Input term = "))
+starttime = current_millis()
+for i in range(input):
+    print(i+1," term is ",fibR(i+1))
+endtime = current_millis()
+print("Time taken by Recursion is %f"%(endtime-starttime))
