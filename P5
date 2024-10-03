@@ -1,0 +1,18 @@
+Take hhtp in node, execute(exec} node, function node and http response node respectivily.
+Double-click on each node to make changes:
+1- http in node: 
+                URL - qtemp
+                Name - Query Temp
+2- Execute node:
+                Command - vcgencmd measure_temp
+                Name: Temp cmd
+3- Function node:
+                str=msg.payload;
+                str=str.substring(5,11);
+			          msg.payload="<h1>The current temp is:"+str+"</h1>";
+                return msg;
+4- Http response:
+                Name- Current temp
+                Status code - 200
+Connect the node, all the conection from topmost and Deploy it.
+To run: node-red URL/qtemp
