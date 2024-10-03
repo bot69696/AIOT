@@ -1,0 +1,151 @@
+Pratical 6
+import socket
+import RPi.GPIO as GPIO from subprocess import call
+# GPIO Setting Up
+GPIO.setmode (GPIO.BCM) GPIO.setup(13, GPIO.OUT)
+# Create a Server Socket and wait for a client to connect server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) server_socket.bind(('', 6666))
+print ("UDPServer Waiting for client on port 6666")
+# Define moving functions
+def FW():
+GPIO.output(13, True)
+print ("On")
+call(["ls", "-1"])
+def STOP():
+GPIO.output (13, False)
+print ("Off")
+call(["ls", "-all"])
+options = { "0": FW, "3": STOP,
+}
+# Recive data from client and decide which function to call while True:
+dataFromClient, address = server_socket.recvfrom(256) dataFromClient = dataFromClient.rstrip()
+#print(dataFromClient.decode())
+options [dataFromClient.decode()]()
+
+==================================================================================================
+
+import socket
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+try:
+while 1:
+data= input("Enter Data :")
+#IPADRESS RPi IP address
+#6666 Number Port
+client_socket.sendto(data.encode(), ('192.168.0.202',6666))
+print ("Sending request")
+except Exception as ex:
+print (ex)
+raw_input()
+client_socket.close()
+
+=================================================================================================
+Pratical 3
+
+pip --version
+pip install 'SomeProject'
+pip install 'SomeProject==1.4'
+pip install-upgrade SomeProject
+pip install --index-url http://my.package.repo/simple/ SomeProject
+
+import time as time
+def fib(n):
+a,b = 0,1
+for i in range(n): a,bb, a+b #print ("%d term is = %d" %(1+1, a))
+return a
+current_millis lambda: int(round(_time.time() * 1000))
+input int(input("Input term = "))
+starttime = current_millis()
+x = fib(input)
+endtime current_millis()
+print("The term value is %d Time taken is %f" %(x, (endtime starttime)))
+
+
+import time as time
+def fibr(n):
+a, i = 0, 1
+if n==1 or n == 2:
+return 1
+return fibR(n-1)+fibR(n-2)
+current_millis lambda: int(round(_time.time()* 1000))
+input int(input("Input term = "))
+starttime = current_millis()
+x = fibR(input)
+endtime current_millis()
+print("The term value is %f Time taken is %f" %(x, (endtime starttime)))
+
+#Using Recursion
+import time as _time
+def fibR(n):
+ if n <= 1:
+ return n
+ return fibR(n-1)+fibR(n-2)
+current_millis = lambda : int(round(_time.time() * 1000))
+input = int(input("Input term = "))
+starttime = current_millis()
+for i in range(input):
+ print(i+1," term is ",fibR(i+1))
+endtime = current_millis()
+print("Time taken by Recursion is %f"%(endtime-starttime))
+
+=============================================================================================================
+=============================================================================================================
+pratical 4
+
+msg.payload = Math.random() * 100
+
+=============================================================================================================
+
+Pratical 8
+
+sudo raspi-config
+sudo nano /etc/modules
+sudo reboot
+
+1  	i2c-bcm2708
+2	i2c-dev
+
+sudo apt-get install i2c-tools python-smbus
+
+sudo i2cdetect -y 1
+
+sudo i2cdetect -y 1 0
+
+
+import smbus
+import time
+
+# Initialize I2C bus
+bus = smbus.SMBus(1)
+bus.write_byte_data(0x68, 0x6B, 0)  # Wake up the MPU6050
+
+# Function to read word data
+def read_word(reg):
+    high = bus.read_word_data(0x68, reg)
+    low = bus.read_word_data(0x68, reg + 1)
+    val = (high << 8) + low
+    return val - 65536 if val > 32767 else val
+
+try:
+    while True:
+        x = read_word(0x43)
+        y = read_word(0x45)
+        z = read_word(0x47)
+        print(f'X: {x}, Y: {y}, Z: {z}')
+        time.sleep(0.5)
+except KeyboardInterrupt:
+    print("Program terminated")
+
+==============================================================================================================
+
+Pratical 5
+
+Aim :- Write simple JavaScript functions in Node-Red simple HTTP server page 
+
+http node = Query Pi Temp = /querypitemp 
+
+exec node = Temp CMD = command = vcgencmd measure_temp 
+
+Funtion node = Pitempc = str = msg.payload;
+			str = str.substring(5,11);
+			msg.payload = '<h1>The current temp is str + '</h1>';
+
+Http Responce = Current Pi Temprature = status code = 200
