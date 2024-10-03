@@ -1,0 +1,16 @@
+Create New Flow:
+Open Setting i.e dashboard:
+Go to chart< Enable all things< Name-chart< icon-dashboard
+Go to chart(function): Name-Function< Tab-Chart< Width-6< Tick Display Name group.
+Now drag n drop inject node, function node and chart node.
+Connect the node to create the flow.
+On Chart node:
+             Change the name to Temparature
+             X-axis 30 seconds and Y-axis to 0min and 100max
+On Inject node:
+             Select repeat interval
+On Function node:
+             Change the name and write
+             msg.payload = Math.random() * 100
+             return msg;
+Deploy it and paste the node-red URL\ui  to run it
