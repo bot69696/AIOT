@@ -1,3 +1,20 @@
+Connect the wire in raspberry from USB side facing towards you:
+    Positive Leg (red wire): Connect it to 4th pin of left-side
+    Negative Leg (blue wire): Connect it to 3rd last of right-side
+
+Open python and write the code for TCPserver and TCPclient and save on desktop with .py
+In coding part change the IP address accordingly using [ipconfig] command in cmd.
+
+Open cmd:
+         sudo apt-get install socket
+         cd Desktop
+         sudo python3 server.pu
+Open another cmd:
+                cd Desktop
+                sudo python3 cient.py
+Enter '0' for on and '3' for off.
+
+
 TCPserver.py:
 import socket
 import RPi.GPIO as GPIO 
